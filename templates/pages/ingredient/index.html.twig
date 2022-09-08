@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello IngredientController!
+{% endblock %}
+
+{% block body %}
+
+	<div class="example-wrapper container p-4">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+
+			{% for message in app.flashes('danger') %}
+				<div class="alert alert-danger">
+					{{ message }}
+				</div>
+			{% endfor %}
+
+
+
+			<h1 class="mb-2">Mes ingredients ({{ingredients.getTotalItemCount}} au total)</h1>
+			
+			<a href="{{path('ingredient.new')}}" class="btn btn-primary my-3">Créer un nouvel ingredient</a>
+
+			<table class="table p-4 table-hover table-sm table-primary ">
+				<thead>
+					<tr>
+						<th scope="col">Numero</th>
+						<th scope="col">Nom</th>
+						<th scope="col">Prix</th>
+						<th scope="col">Date de creation</th>
+						<th scope="col">Editer</th>
+						<th scope="col">Supprimer</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for ingredient in ingredients %}
+						<tr>
+							<th  scope="row">{{ingredient.id}}</th>
+				 			<td>{{ingredient.name}}</td>
+							<td>{{ingredient.price}}</td>
+							<td>{{ingredient.createdAt|date("d/m/y")}}</td>
+							<td><a href="{{path("ingredient.edit",{id:ingredient.id})}}" class="btn btn-warning">Editer</button></td>
+							<td><a href="{{path("ingredient.delete",{id:ingredient.id})}}" class="btn btn-danger">Supprimer</button></td>
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+<div class="navigation d-flex justify-content-center mt-4">
+	{{ knp_pagination_render(ingredients) }}
+</div>
+
+
+		</div>
+
+</div>{% endblock %}
+

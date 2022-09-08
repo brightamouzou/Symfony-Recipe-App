@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+{% block title %}
+    Formulaire de emailInfos {{emailInfos.fullName ?? emailInfos.email}}
+{% endblock %}
+
+{% block body %}
+    <h1>Demande de {{emailInfos.fullName}}</h1>
+    <p>From :
+        {{emailInfos.email}}
+    </p>
+    <p>Subject:
+        {{emailInfos.subject}}
+    </p>
+    <p>
+        <div style="mb-2">Message</div>
+        <div class="content" style='color:green;'>
+            {{emailInfos.message}}
+        </div>
+    </p>
+
+{% endblock %}

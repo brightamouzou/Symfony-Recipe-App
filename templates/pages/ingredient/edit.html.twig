@@ -1,0 +1,36 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Formulaire d'ajout de recette
+{% endblock %}
+
+{% block body %}
+	<div class="container p-4">
+		<h1>Edition d'un ingredient</h1>
+
+
+		{{form_start(form)}}
+
+		{# <div class="my-custom-class-for-errors">
+		            {{ form_errors(form) }}
+		        </div> #}
+
+		{# Form name field #}
+			<div class="form-group"> {{form_label(form.name)}}
+			{{form_widget(form.name)}}
+			<div class="text-danger">{{form_errors(form.name)}}</div>
+
+		</div>
+
+
+		{# Form price field #}
+		<div class="form-group">
+			{{form_label(form.price)}}
+			{{form_widget(form.price)}}
+			<div class="text-danger">{{form_errors(form.price)}}</div>
+
+		</div>
+
+		{{form_end(form)}}
+	</div>
+
+{% endblock %}

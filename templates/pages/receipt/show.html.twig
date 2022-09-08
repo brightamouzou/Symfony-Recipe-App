@@ -1,0 +1,96 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Receip-Symf -{{receipt.name}}
+{% endblock %}
+
+{% block body %}
+
+	<div class="container p-4 " style="width:100vw;">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{% for message in app.flashes('danger') %}
+			<div class="alert alert-danger">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<div class="d-flex justify-content-center align-items-center">
+
+
+			<div class="card position-relative" style="width: 30rem;">
+				<div class="position-absolute ">
+					<small>${{receipt.price ??'(Prix non renseigné)'}}</small>
+				</div>
+
+
+				{% if receipt.imageName %}
+					<img src="/images/recette/{{receipt.imageName}}" alt="Image de la recette {{receipt.name}}">
+				{% else %}
+					<img src="https://images.unsplash.com/photo-1578020190125-f4f7c18bc9cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dG9tYXRvJTIwc291cHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
+				{% endif %}
+
+				
+				<div class="card-body">
+					<h5 class="card-title">{{receipt.name}}</h5>
+					<div class="d-flex flex-column mb-2">
+						<div class="badge bg-info mb-3 py-2">Duration(minutes):
+							{{receipt.duration ?? 'Non renseigné'}}</div>
+						<div class="badge bg-warning mb-2 py-2">Difficulty :
+							{% if receipt.difficulty>=4 %}
+								<div class="badge bg-danger">
+									{{receipt.difficulty}}/5
+								</div>
+							{% elseif receipt.difficulty>=2 %}
+								<div class="badge bg-success">
+									{{receipt.difficulty}}/5
+								</div>
+							{% else %}
+								<div class="badge bg-danger">
+									{{receipt.difficulty}}/5
+								</div>
+							{% endif  %}
+						</div>
+
+						<div class="badge bg-dark mb-2 py-2">Nombre de personnes:
+							{{receipt.nbPersons}}</div>
+						<div class="marksAverage badge bg-success py-2 mb-2">
+							Avis : {{marksInfos.avg}} / 5 {{' '}} ({{marksInfos.count}} avis)  
+						</div>
+					</div>
+					<p>
+						<button class="btn btn-primary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+							Voir la description
+						</button>
+
+						<div class="collapse" id="collapseExample">
+							{{receipt.description}}
+						</div>
+					</p>
+
+					<ul class="list-group">
+						<h4>Ingredients de la recette</h4>
+						{% for ingredient in receipt.ingredients %}
+							<li class="list-group-item">
+								{{ingredient.name}}
+							</li>
+						{% endfor %}
+					</ul>
+
+					<div class="form-group mt-3">
+						{{form(form)}}
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+	{% endblock %}

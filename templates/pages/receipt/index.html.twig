@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste de recettes
+{% endblock %}
+
+{% block body %}
+
+	<div class="example-wrapper container p-4">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{% for message in app.flashes('danger') %}
+			<div class="alert alert-danger">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<h1 class="mb-2">Mes recettes ({{receipts.getTotalItemCount}}
+			au total)</h1>
+
+		{# <a href="{{path('receipt.new')}}" class="btn btn-primary my-3">Créer une nouvelle recette</a> #}
+
+		<table class="table p-4 table-hover table-bordered table-sm table-primary ">
+			<thead>
+				<tr>
+					<th scope="col">Numero</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Prix</th>
+					<th scope="col">Nombre de personnes</th>
+					<th scope="col">Niv. Difficulté</th>
+                    <th scope="col">Description</th>
+					<th scope="col">Création</th>
+					<th scope="col">Mise à jour</th>
+					<th scope="col">Editier</th>
+					<th scope="col">Supprimer</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for receipt in receipts %}
+					<tr>
+	<th scope="row">
+	<a href="/receipt/show/{{receipt.id}}">{{receipt.id}}</a></th>
+
+						<td>{{receipt.name}}</td>
+						<td>{{receipt.price ??"Non rensigné"}}</td>
+						<td>{{receipt.nbPersons ??"Non rensigné"}}</td>
+						<td>{{receipt.difficulty ??"Non rensigné"}}</td>
+						<td>{{receipt.description}}</td>
+                        <td>{{receipt.createdAt|date("d/m/y")}}</td>
+                        <td>{{receipt.updatedAt|date("d/m/y")}}</td>
+						<td><a href="{{path("receipt.edit",{id:receipt.id})}}" class="btn btn-warning">Editer</button></td>
+						<td><a href="{{path("receipt.delete",{id:receipt.id})}}" class="btn btn-danger">Supprimer</button></td>
+					</tr>
+				{% endfor %}
+
+			</tbody>
+		</table>
+		<div class="navigation d-flex justify-content-center mt-4">
+			{{ knp_pagination_render(receipts) }}
+		</div>
+	</div>
+
+</div>{% endblock %}
+

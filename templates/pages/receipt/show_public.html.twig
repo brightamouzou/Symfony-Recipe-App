@@ -1,0 +1,84 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Receip-Symf -Recettes publiques
+{% endblock %}
+
+{% block body %}
+
+	<div class="container p-4 " style="width:100vw;">
+
+        <div class="d-flex flex-wrap">
+        {% for receipt in receipts %}
+        
+            <div class="d-flex justify-content-center align-items-center m-4">
+
+
+                <div class="card position-relative" style="width: 30rem;">
+                    <div class="position-absolute ">
+                        <small>${{receipt.price ??'(Prix non renseigné)'}}</small>
+                    </div>
+
+<a href="/receipt/show/{{receipt.id}}"><img src="https://images.unsplash.com/photo-1578020190125-f4f7c18bc9cb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dG9tYXRvJTIwc291cHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="..."></a>
+
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{receipt.name}}</h5>
+                        <div class="d-flex flex-column mb-2">
+                            <div class="badge bg-info mb-3 py-2">Duration(minutes):
+                                {{receipt.duration ?? 'Non renseigné'}}</div>
+                            <div class="badge bg-warning mb-2 py-2">Difficulty :
+                                {% if receipt.difficulty>=4 %}
+                                    <div class="badge bg-danger">
+                                        {{receipt.difficulty}}/5
+                                    </div>
+                                {% elseif receipt.difficulty>=2 %}
+                                    <div class="badge bg-warning">
+                                        {{receipt.difficulty}}/5
+                                    </div>
+                                {% else %}
+                                    <div class="badge bg-success">
+                                        {{receipt.difficulty}}/5
+                                    </div>
+                                {% endif  %}
+                            </div>
+
+                            <div class="badge bg-dark mb-2 py-2">Nombre de personnes:
+                                {{receipt.nbPersons??"Non renseigné"}}</div>
+                        </div>
+                        <p>
+                            <button class="btn btn-primary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{receipt.name}}" aria-expanded="false" aria-controls="{{receipt.name}}">
+                                Voir la description
+                            </button>
+
+                            <div class="collapse" id="{{receipt.name}}">
+                                {{receipt.description}}
+                            </div>
+                        </p>
+
+                        <ul class="list-group">
+                            <h4>Ingredients de la recette</h4>
+                            {% for ingredient in receipt.ingredients %}
+                                <li class="list-group-item">
+                                    {{ingredient.name}}
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+     
+
+        </div>
+
+
+
+	</div>
+<div class="navigation d-flex justify-content-center mt-4">
+	{{ knp_pagination_render(receipts) }}
+</div>
+
+
+{% endblock %}
+

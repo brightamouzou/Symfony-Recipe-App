@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}ReceiptsSymf - Acceuil
+{% endblock %}
+
+
+{% block body %}
+	<div class="container">
+		<div class="jumbotron m-4">
+			<h1 class="display-4">Bienvenue sur Symfony-Receipts</h1>
+            <p class="lead">
+                Symfony-Receipts est un site web, des meilleurs vous permettant de concoter des recetters ouf pour toutes vos plans. Avec nous , ne vous ennuyez plus avec vos proches!
+
+            </p>
+			<hr class="my-4">
+			<p>Inscrivez vous et commencez à savourer dès maitenant nos recettes</p>
+			<p class="lead">
+				<a class="btn btn-primary btn-lg mr-3" href="{{path("security.registration")}}" role="button">S'inscrire</a>
+				<a class="btn btn-primary btn-lg" href="{{path("security.login")}}" role="button">Se connecter</a>
+			</p>
+		</div>
+	</div>
+{% endblock %}
